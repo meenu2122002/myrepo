@@ -1,25 +1,58 @@
 import logo from './logo.svg';
 import './App.css';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Login from "./components/login"
+import React, { Component } from 'react'
+import Navbar from './components/Navbar';
+import News from './components/News';
+import LoadingBar from 'react-top-loading-bar'
+import { useState } from 'react';
+import Home from "./components/home.js"
+// export default class App extends Component {
+  export default function App (){
+  const apikey=process.env.REACT_APP_NEWS_API
+//  state={
+// progress:0
+//  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+//   setProgess=(progress)=>{
+//   setState({progress:progress})`
+//  }
+const [progress,setProgress]=useState(0);
+ 
+ 
+  // render() {
+    return (
+      <div>
+        {/* <Login/> */}
+  <Navbar/>
+  
+  <LoadingBar
+        color='#f11946'
+        progress={progress}
+        onLoaderFinished={() =>setProgress(0)}
+      />
+  <BrowserRouter>
+  <Routes>
+  <Route path="/business" element={<News apikey={apikey}setProgress={setProgress} country="in" category="business" />}/>
+  <Route path="/" element={<Home />}/>
+  <Route path="/about" element={<News apikey={apikey}setProgress={setProgress} country="in" category="entertainment" />}/>
+  <Route path="/sports" element={<News apikey={apikey}setProgress={setProgress} country="in" category="sports" />}/>
+  <Route path="/science" element={<News apikey={apikey}setProgress={setProgress} country="in" category="science" />}/>
+  <Route path="/technology" element={<News apikey={apikey}setProgress={setProgress} country="in" category="technology" />}/>
+  <Route path="/general" element={<News apikey={apikey}setProgress={setProgress} country="in" category="general" />}/>
+  <Route path="/health" element={<News apikey={apikey}setProgress={setProgress} country="in" category="health" />}/>
+  <Route path="/entertainment" element={<News apikey={apikey}setProgress={setProgress} country="in" category="entertainment" />}/>
+  </Routes>
+  </BrowserRouter>
+      </div>
+    )
+  }
 
-export default App;
+
+
+
